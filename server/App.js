@@ -8,7 +8,7 @@ import userRouter from './routes/users.js';
 
 dotenvConfig();
 
-const { PORT, MONGO_URL ,COOKIE_KEY} = process.env;
+const { PORT, MONGO_URL, COOKIE_KEY } = process.env;
 const db = mongoose.connection;
 const app = express();
 
