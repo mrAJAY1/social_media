@@ -6,4 +6,5 @@
 body{
   background-color: #ededed;
   overflow-x:hidden !important;
+  line-height:1.5;
 }

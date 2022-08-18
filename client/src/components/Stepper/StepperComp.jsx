@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { Grid, Stepper, Step, styled, StepConnector, StepLabel, StepConnectorIcon, stepConnectorClasses, Checkbox, Button } from '@mui/material'
+import React from 'react'
+import { Stepper, Step, styled, StepConnector, StepLabel, stepConnectorClasses } from '@mui/material'
 import { RiLockPasswordLine } from 'react-icons/ri'
 import { HiOutlineIdentification, HiOutlinePhotograph } from 'react-icons/hi'
 import propTypes from 'prop-types'
+import { borderColor } from '@mui/system'
 
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
@@ -10,7 +11,7 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
         top: 7,
         left: 'calc(-50% + 3px)',
         right: 'calc(50% + 3px)',
-        height:7,
+        height: 7,
         zIndex: '-1',
         transition: '0.5s',
         border: '1px solid black',
@@ -57,16 +58,18 @@ const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
         backgroundColor: '#5596E6',
         color: 'white',
         borderRadius: '50%',
-        boxShadow: '0px 0px 5px #5596E6'
+        boxShadow: '0px 0px 5px #5596E6',
     }),
+
     '& .QontoStepIcon-completedIcon': {
         color: 'white',
-        backgroundColor: "#5596E6",
+        backgroundColor: "#yellow",
         zIndex: 1,
         fontSize: 22,
         border: '1px solid white',
         borderRadius: '50%',
-        borderWidth: 3,
+        borderWidth: 5,
+
     },
     '& .QontoStepIcon-circle': {
         width: '30px',
@@ -77,23 +80,35 @@ const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
     },
 
     '& .QontoStepIcon-icon': {
-        width: '30px',
-        height: '30px',
-        border: '1px solid #3d70b2',
+        width: '28px',
+        height: '28px',
+        border: '1px solid #cececea4',
+        boxShadow: '-1px 3px 10px 0 rgb(0 0 0 / 6%)',
         borderRadius: '50%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         pointerEvents: 'none',
-        backgroundColor: "white"
+        backgroundColor: "white",
+        stroke: '#cecece',
+        color: '#cecece',
+        transition: '0.2s 0.3s ',
+        padding: '3px 9px'
+    },
+    '& .isActivetrue': {
+        border: '1px solid #3d70b2',
+        stroke: '#3d70b2',
+        color: '#3d70b2',
+    },
+    '& .isCompletedtrue': {
+        border: '1px solid #3d70b2',
+        stroke: '#3d70b2',
+        color: '#3d70b2',
     },
 
     '& .QontoStepIcon-svg': {
-        height: '17px',
-        width: '17px',
-        stroke: '#3d70b2',
-        color: '#3d70b2',
-        "-webkit-font-smoothing": "antialiased",
+        height: '16px',
+        width: '16px',
     }
 
 }))
@@ -113,32 +128,32 @@ function QontoStepIcon(props) {
 
             {
                 step === 0 ? (
-                    <div className='QontoStepIcon-icon'>
+                    <div className={`QontoStepIcon-icon isCompleted${completed} isActive${active}`}>
                         <svg className='QontoStepIcon-svg' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </div>
                 ) : step === 1 ? (
-                    <div className='QontoStepIcon-icon'>
+                    <div className={`QontoStepIcon-icon isCompleted${completed} isActive${active}`}>
                         <RiLockPasswordLine className='QontoStepIcon-svg' />
                     </div>
                 )
                     : step === 2 ? (
-                        <div className='QontoStepIcon-icon'>
+                        <div className={`QontoStepIcon-icon  isCompleted${completed} isActive${active}`}>
                             <HiOutlineIdentification className='QontoStepIcon-svg' />
                         </div>
                     )
                         : step === 3 ? (
-                            <div className='QontoStepIcon-icon'>
+                            <div className={`QontoStepIcon-icon isCompleted${completed} isActive${active}`}>
                                 <HiOutlinePhotograph className='QontoStepIcon-svg' />
                             </div>
                         )
                             : step === 4 ? (
-                                <div className='QontoStepIcon-icon'>
-                                   <svg className='QontoStepIcon-svg' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                <div className={`QontoStepIcon-icon isCompleted${completed} isActive${active}`}>
+                                    <svg className='QontoStepIcon-svg' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                                 </div>
                             )
                                 : step === 5 ? (
-                                    <div className='QontoStepIcon-icon'>
-                                      <svg className='QontoStepIcon-svg' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" ><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+                                    <div className={`QontoStepIcon-icon isCompleted${completed} isActive${active}`}>
+                                        <svg className='QontoStepIcon-svg' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" ><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
                                     </div>
                                 )
                                     : console.log("hellow")
