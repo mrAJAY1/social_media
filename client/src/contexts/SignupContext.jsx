@@ -1,14 +1,24 @@
-import React, { createContext, useState } from 'react'
+import { createContext, useMemo, useState } from "react";
+import propTypes from "prop-types";
 
-export const SignupProvider = createContext()
+export const SignupProvider = createContext();
 
-function SignupContext({children}) {
-    const [currentStep,setCurrentStep] = useState(0);
+function SignupContext({ children }) {
+  const [currentStep, setCurrentStep] = useState(0);
+  const values = useMemo(
+    () => ({
+      currentStep,
+      setCurrentStep,
+    }),
+    [currentStep]
+  );
   return (
-    <SignupProvider.Provider value={{currentStep,setCurrentStep}}>
-        {children}
-    </SignupProvider.Provider>
-  )
+    <SignupProvider.Provider value={values}>{children}</SignupProvider.Provider>
+  );
 }
 
-export default SignupContext
+SignupContext.propTypes = {
+  children: propTypes.node,
+};
+
+export default SignupContext;
