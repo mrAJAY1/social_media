@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+.step1Wrapper {
+  width: 100%;
+  margin:0 auto;
+}
+
+@media (min-width: 600px) {
+  .step1Wrapper{
+    width: 540px;
+  }
+}
+
+.step1Wrapper .childWrapper {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 30px;
+}
+.step1Wrapper .childWrapper .formWrapper {
+  border: 1px solid #e8e8e8;
+  padding: 4px 8px 8px 8px;
+  border-radius: 6px;
+  background: #fcfcfc;
+  margin-bottom: 20px;
+}
+.step1Wrapper .childWrapper .formWrapper label {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #757a91;
+  padding-left: 2px;
+}
+.step1Wrapper .childWrapper .formWrapper .inputWrapper {
+  box-sizing: border-box;
+  clear: both;
+  font-size: 1rem;
+  position: relative;
+  text-align: inherit;
+}
+.step1Wrapper .childWrapper .formWrapper .inputWrapper input {
+  border: none;
+  height: 30px;
+  width:100%;
+  background: #fcfcfc;
+}
+
+.step1Wrapper .childWrapper .formWrapper .inputWrapper input:focus{
+    border:none;
+    outline:none;
+}
+.step1Wrapper .childWrapper .formWrapper .inputWrapper input::placeholder{
+  color:#c4c2c6;
+}
