@@ -1,9 +1,9 @@
-import { createTheme, Grid, Typography } from '@mui/material'
-import { ThemeProvider } from '@mui/system'
+import React from 'react'
+import { createTheme, Grid, Link, ThemeProvider, Typography } from '@mui/material'
 import AnimateBR from '../Motions/AnimateBR';
 import AnimateUtoD from '../Motions/AnimateUtoD';
+import Style from './Step2.module.css'
 import SignupBtns from '../StepperBTN.jsx/SignupBtns';
-import Style from './Step1.module.css'
 
 const theme = createTheme();
 theme.typography.h2 = {
@@ -18,41 +18,31 @@ theme.typography.h2 = {
     fontWeight: "400",
     transform: "scale(1,0.9)",
 }
-
-function Step1() {
+function Step2() {
     return (
         <>
             <Grid item xs={12} sx={{ marginTop: { xs: 2, md: 10 } }} justifyContent='center' display='flex' >
                 <AnimateUtoD>
                     <ThemeProvider theme={theme}>
                         <Typography variant='h2'>
-                            Tell us about you
+                            Let's Verify
                         </Typography>
                     </ThemeProvider>
                 </AnimateUtoD>
             </Grid>
             <Grid item xs={11} sx={{ padding: "20px 0" }}>
                 <AnimateBR>
-                    <div className={Style.step1Wrapper}>
+                    <div className={Style.step2Wrapper}>
                         <div className={Style.childWrapper} >
+                            <small>An OTP has been sent to your email/phone</small>
                             <div className={Style.formWrapper}>
-                                <label>First Name</label>
+                                <label>OTP</label>
                                 <div className={Style.inputWrapper} >
-                                    <input name='firstName' type="text" placeholder='Enter your first name' style={{}} />
+                                    <input name='otp' type="text" placeholder='Enter the OTP' style={{}} />
                                 </div>
                             </div>
-                            <div className={Style.formWrapper}>
-                                <label>Last Name</label>
-                                <div className={Style.inputWrapper} >
-                                    <input name='lastName' type="text" placeholder='Enter your last name' style={{}} />
-                                </div>
-                            </div>
-                            <div className={Style.formWrapper}>
-                                <label>Email</label>
-                                <div className={Style.inputWrapper} >
-                                    <input name='email' type="text" placeholder='Enter your email' style={{}} />
-                                </div>
-                                
+                            <div className={Style.resendLink}>
+                                <small>Didn't get one ? </small><Link>Resend OTP</Link>
                             </div>
                             <SignupBtns/>
                         </div>
@@ -60,8 +50,7 @@ function Step1() {
                 </AnimateBR>
             </Grid>
         </>
-
     )
 }
 
-export default Step1
+export default Step2

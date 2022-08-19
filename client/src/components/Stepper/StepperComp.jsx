@@ -6,6 +6,7 @@ import propTypes from 'prop-types'
 import { borderColor } from '@mui/system'
 
 
+
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
         top: 7,
@@ -190,7 +191,6 @@ function StepperComp({ currentStep, steps }) {
                         </Step>
                     )
                 })}
-
             </Stepper>
         </>
     )

@@ -1,13 +1,14 @@
-import './App.css';
-import Signup from './pages/signup/Signup';
-import SampleSignup from './components/sampleSignup/SampleSignup'
+import "./App.css";
+import SignupContext from "./contexts/SignupContext";
+import Signup from "./pages/signup/Signup";
 
 function App() {
   return (
-  <div>
-  {/* <Signup></Signup> */}
-  <Signup></Signup>
-  </div>
+    <div>
+      <SignupContext>
+        <Signup></Signup>
+      </SignupContext>
+    </div>
   );
 }
 
