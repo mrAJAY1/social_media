@@ -9,7 +9,9 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
+import { useContext } from "react";
 import { SignupBtns } from "..";
+import { SignupProvider } from "../../contexts/SignupContext";
 import AnimateBR from "../Motions/AnimateBR";
 import AnimateUtoD from "../Motions/AnimateUtoD";
 import Style from "./Step3.module.css";
@@ -55,6 +57,13 @@ theme.typography.h5 = {
 };
 
 function Step3() {
+  const { data, setData } = useContext(SignupProvider);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+  };
+
   return (
     <>
       <Grid
@@ -83,8 +92,10 @@ function Step3() {
                 <label>Username</label>
                 <div className={Style.inputWrapper}>
                   <input
-                    name='username'
+                    name='userName'
                     type='text'
+                    value={data.userName}
+                    onChange={handleChange}
                     placeholder='try a username'
                   />
                 </div>
@@ -102,6 +113,8 @@ function Step3() {
                     select username
                   </label>
                   <StyledSelect
+                    value={data.userName}
+                    onChange={handleChange}
                     fullWidth
                     sx={{ height: "20px", borderBottom: "1px solid white" }}
                     variant='standard'

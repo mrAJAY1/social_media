@@ -11,12 +11,22 @@ import { Stepper, SignupFinal } from "../../components";
 import { SignupProvider } from "../../contexts/SignupContext";
 
 function RenderStep({ currentStep }) {
-  if (currentStep === 0) return <Step1 />;
-  if (currentStep === 1) return <Step2 />;
-  if (currentStep === 2) return <Step3 />;
-  if (currentStep === 3) return <Step1 />;
-  if (currentStep === 4) return <Step2 />;
-  if (currentStep === 5) return <SignupFinal />;
+  switch (currentStep) {
+    case 0:
+      return <Step1 />;
+    case 1:
+      return <Step2 />;
+    case 2:
+      return <Step3 />;
+    case 3:
+      return <Step1 />;
+    case 4:
+      return <Step3 />;
+    case 5:
+      return <SignupFinal />;
+    default:
+      return null;
+  }
 }
 
 RenderStep.propTypes = {
@@ -24,7 +34,7 @@ RenderStep.propTypes = {
 };
 
 function Signup() {
-  const { currentStep } = useContext(SignupProvider);
+  const { currentStep, data, setData } = useContext(SignupProvider);
 
   const steps = [
     "personal",
@@ -64,7 +74,11 @@ function Signup() {
           }}
         >
           <Grid container maxWidth='xl' dispay='flex' justifyContent='center'>
-            <RenderStep currentStep={currentStep} />
+            <RenderStep
+              currentStep={currentStep}
+              data={data}
+              setData={setData}
+            />
             <Grid item xs={12} display='flex' justifyContent='center' />
           </Grid>
         </main>
@@ -72,5 +86,4 @@ function Signup() {
     </div>
   );
 }
-
 export default Signup;

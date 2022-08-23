@@ -1,54 +1,67 @@
-import { createTheme, Grid, Typography, ThemeProvider } from '@mui/material';
-import { React } from 'react';
-
-import { SignupBtns } from '..';
-import AnimateBR from '../Motions/AnimateBR';
-import AnimateUtoD from '../Motions/AnimateUtoD';
-import Style from './Step1.module.css';
+import { createTheme, Grid, Typography, ThemeProvider } from "@mui/material";
+import { useContext, useEffect } from "react";
+import { SignupBtns } from "..";
+import { SignupProvider } from "../../contexts/SignupContext";
+import AnimateBR from "../Motions/AnimateBR";
+import AnimateUtoD from "../Motions/AnimateUtoD";
+import Style from "./Step1.module.css";
 
 const theme = createTheme();
 
 theme.typography.h2 = {
-  '@media (max-width:600px)': {
-    fontSize: '1.5rem',
+  "@media (max-width:600px)": {
+    fontSize: "1.5rem",
   },
-  color: '#344258',
-  fontFamily: ['Montserrat', 'sans-serif'].join(','),
-  lineHeight: '1.2rem',
-  fontWeight: '400',
-  transform: 'scale(1,0.9)',
+  color: "#344258",
+  fontFamily: ["Montserrat", "sans-serif"].join(","),
+  lineHeight: "1.2rem",
+  fontWeight: "400",
+  transform: "scale(1,0.9)",
 };
 
 function Step1() {
+  const { data, setData, formError } = useContext(SignupProvider);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+  };
+
   return (
     <>
       <Grid
         item
         xs={12}
         sx={{ marginTop: { xs: 2, md: 10 } }}
-        justifyContent="center"
-        display="flex"
+        justifyContent='center'
+        display='flex'
       >
         <AnimateUtoD>
           <ThemeProvider theme={theme}>
-            <Typography variant="h2">Tell us about you</Typography>
+            <Typography variant='h2'>Tell us about you</Typography>
           </ThemeProvider>
         </AnimateUtoD>
       </Grid>
-      <Grid item xs={11} sx={{ padding: '20px 0' }}>
+      <Grid item xs={11} sx={{ padding: "20px 0" }}>
         <AnimateBR>
           <div className={Style.step1Wrapper}>
             <div className={Style.childWrapper}>
               <div className={Style.formWrapper}>
                 <form>
-                  {' '}
-                  <label>First Name</label>
+                  {formError.firstName !== "" ? (
+                    <label>{formError.firstName}</label>
+                  ) : (
+                    <label>First Name</label>
+                  )}
+
                   <div className={Style.inputWrapper}>
                     <input
-                      name="firstName"
-                      type="text"
-                      placeholder="Enter your first name"
+                      value={data.firstName}
+                      name='firstName'
+                      type='text'
+                      placeholder='Enter your first name'
                       style={{}}
+                      onChange={handleChange}
                     />
                   </div>
                 </form>
@@ -57,21 +70,25 @@ function Step1() {
                 <label>Last Name</label>
                 <div className={Style.inputWrapper}>
                   <input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                    placeholder="Enter your last name"
+                    id='lastName'
+                    name='lastName'
+                    type='text'
+                    value={data.lastName}
+                    placeholder='Enter your last name'
                     style={{}}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
               <div className={Style.formWrapper}>
-                <label>Email</label>
+                <label>Email/phone</label>
                 <div className={Style.inputWrapper}>
                   <input
-                    name="email"
-                    type="text"
-                    placeholder="Enter your email"
+                    name='contact'
+                    type='text'
+                    placeholder='Enter your email or phone number'
+                    value={data.contact}
+                    onChange={handleChange}
                     style={{}}
                   />
                 </div>
