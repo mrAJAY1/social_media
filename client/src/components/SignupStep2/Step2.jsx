@@ -24,7 +24,7 @@ theme.typography.h2 = {
   transform: "scale(1,0.9)",
 };
 function Step2() {
-  const { localOtp, setLocalOtp, formError } = useContext(SignupProvider);
+  const { localOtp, setLocalOtp, formErr } = useContext(SignupProvider);
 
   const handleChange = (e) => {
     setLocalOtp(e.target.value);
@@ -50,16 +50,16 @@ function Step2() {
           <div className={Style.step2Wrapper}>
             <div className={Style.childWrapper}>
               <small>An OTP has been sent to your email/phone</small>
-              <div className={Style.formWrapper}>
-                {formError ? (
-                  <label style={{ color: "red" }}>Invalid OTP entered </label>
+              <div
+                style={formErr.otp && { border: "1px solid red" }}
+                className={Style.formWrapper}
+              >
+                {typeof formErr.otp !== "undefined" ? (
+                  <label style={{ color: "red" }}>{formErr.otp}</label>
                 ) : (
                   <label>OTP</label>
                 )}
-                <div
-                  className={Style.inputWrapper}
-                  style={formError && { borderColor: "red" }}
-                >
+                <div className={Style.inputWrapper}>
                   <input
                     name='otp'
                     value={localOtp}
@@ -72,7 +72,7 @@ function Step2() {
               </div>
               <div className={Style.resendLink}>
                 <small>Didn&rsquo;t get one ? </small>
-                <Link to>Resend OTP</Link>
+                <Link to='/'>Resend OTP</Link>
               </div>
               <SignupBtns />
             </div>

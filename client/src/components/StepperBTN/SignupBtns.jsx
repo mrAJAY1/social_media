@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
 import { Button, Grid } from "@mui/material";
-import { useContext } from "react";
-// import axios from "axios";
+import { useState, useContext, useEffect } from "react";
 import { SignupProvider } from "../../contexts/SignupContext";
-// import serverUrl from "../../constants/urls";
+
 const ForwardBtn = styled(Button)(() => ({
   minWidth: "90px",
   fontSize: "0.8rem",
@@ -46,85 +45,72 @@ const BackWardBtn = styled(Button)(() => ({
 }));
 
 function SignupBtns() {
+  const [submitted, setSubmitted] = useState(false);
   const {
-    formError,
-    setData,
     currentStep,
     setCurrentStep,
     data,
-    // setOtp,
-    otp,
+    setData,
+    formErr,
+    setFormErr,
     localOtp,
-    setFormError,
   } = useContext(SignupProvider);
-  const error = {};
-  function validateContact() {
-    const regEmail =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const regPhone = /^[0-9]+$/;
-    if (!regPhone.test(data.contact)) {
-      if (!regEmail.test(data.contact)) {
-        setFormError({ ...formError, email: "Enter a valid email" });
-        return false;
-      }
-      setData({ ...data, contactType: "email" });
-      return true;
-    }
-    if (data.contact.length !== 10) {
-      error.phone = "Enter a valid phone number";
-      setFormError(error);
-      return false;
-    }
-    setData({ ...data, contactType: "phone" });
-    return true;
-  }
-  function validateFirstName() {
-    const regName = /^[a-zA-Z ]{2,30}$/;
-    if (!regName.test(data.firstName)) {
-      setFormError({ ...formError, firstName: "Enter a valid first name" });
-      return false;
-    }
-    return true;
-  }
-  function validateLastName() {
-    const regName = /^[a-zA-Z ]{2,30}$/;
-    if (!regName.test(data.lastName)) {
-      setFormError({ ...formError, lastName: "Enter a valid last name" });
-      return false;
-    }
-    return true;
-  }
+  const { firstName, lastName, contact, otp, userName } = data;
 
   const incrementVal = () => {
+    function validateStep1() {
+      const error = {};
+      const regEmail =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      const regPhone = /^\d{10}$/;
+      const regName = /^[a-zA-Z ]{2,30}$/;
+      if (!regName.test(firstName) || firstName === "") {
+        error.firstName = "Enter a valid first name";
+      }
+      if (!regName.test(lastName) || lastName === "") {
+        error.lastName = "Enter a valid last name";
+      }
+      if (!regEmail.test(contact)) {
+        if (!regPhone.test(contact)) {
+          error.contact = "Enter a valid email or phone number";
+        } else {
+          setData({ ...data, contactType: "phone" });
+        }
+      } else {
+        setData({ ...data, contactType: "email" });
+      }
+      return error;
+    }
+    function validateStep2() {
+      const error = {};
+      if (localOtp !== otp || localOtp === "") {
+        error.otp = "That otp is invalid";
+      }
+      return error;
+    }
+    function validateStep3() {
+      const error = {};
+      const regex = /^[a-z0-9_.]+$/;
+      if (!regex.test(userName) || userName === "")
+        error.userName = "That username is invalid";
+      return error;
+    }
     if (currentStep === 0) {
-      const isContactValid = validateContact();
-      const isFirstNameValid = validateFirstName();
-      const isLastNameValid = validateLastName();
-
-      if (isContactValid && isFirstNameValid && isLastNameValid) {
-        // axios
-        //   .post(`${serverUrl}generate_otp`, {
-        //     data: data.contact,
-        //     contactType: data.contactType,
-        //   })
-        //   .then((res) => {
-        //     const response = res.json();
-        //     setOtp(response.otp);
-        console.log(isContactValid);
-        console.log(isFirstNameValid);
-        console.log(isLastNameValid);
-        setCurrentStep(currentStep + 1);
-        // });
-      }
+      setFormErr(validateStep1());
+      setSubmitted(true);
+    } else if (currentStep === 1) {
+      setFormErr(validateStep2());
+      setSubmitted(true);
     } else if (currentStep === 2) {
-      if (localOtp !== otp) {
-        error.otp = "invalid OTP";
-        setFormError(error);
-      }
-    } else {
-      setCurrentStep(currentStep + 1);
+      setFormErr(validateStep3());
+      setSubmitted(true);
     }
   };
+  useEffect(() => {
+    if (Object.keys(formErr).length === 0 && submitted) {
+      setCurrentStep(currentStep + 1);
+    }
+  }, [formErr]);
   const decrementVal = () => {
     setCurrentStep(currentStep - 1);
   };

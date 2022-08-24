@@ -1,5 +1,5 @@
 import { createTheme, Grid, Typography, ThemeProvider } from "@mui/material";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { SignupBtns } from "..";
 import { SignupProvider } from "../../contexts/SignupContext";
 import AnimateBR from "../Motions/AnimateBR";
@@ -20,8 +20,7 @@ theme.typography.h2 = {
 };
 
 function Step1() {
-  const { data, setData, formError } = useContext(SignupProvider);
-
+  const { data, setData, formErr } = useContext(SignupProvider);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
@@ -46,28 +45,34 @@ function Step1() {
         <AnimateBR>
           <div className={Style.step1Wrapper}>
             <div className={Style.childWrapper}>
-              <div className={Style.formWrapper}>
-                <form>
-                  {formError.firstName !== "" ? (
-                    <label>{formError.firstName}</label>
-                  ) : (
-                    <label>First Name</label>
-                  )}
-
-                  <div className={Style.inputWrapper}>
-                    <input
-                      value={data.firstName}
-                      name='firstName'
-                      type='text'
-                      placeholder='Enter your first name'
-                      style={{}}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </form>
+              <div
+                style={formErr.firstName && { border: "1px solid red" }}
+                className={Style.formWrapper}
+              >
+                {typeof formErr.firstName !== "undefined" ? (
+                  <label style={{ color: "red" }}>{formErr.firstName}</label>
+                ) : (
+                  <label>First Name</label>
+                )}
+                <div className={Style.inputWrapper}>
+                  <input
+                    value={data.firstName}
+                    name='firstName'
+                    type='text'
+                    placeholder='Enter your first name'
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
-              <div className={Style.formWrapper}>
-                <label>Last Name</label>
+              <div
+                className={Style.formWrapper}
+                style={formErr.lastName && { border: "1px solid red" }}
+              >
+                {typeof formErr.lastName !== "undefined" ? (
+                  <label style={{ color: "red" }}>{formErr.lastName}</label>
+                ) : (
+                  <label>Last Name</label>
+                )}
                 <div className={Style.inputWrapper}>
                   <input
                     id='lastName'
@@ -80,8 +85,15 @@ function Step1() {
                   />
                 </div>
               </div>
-              <div className={Style.formWrapper}>
-                <label>Email/phone</label>
+              <div
+                className={Style.formWrapper}
+                style={formErr.contact && { border: "1px solid red" }}
+              >
+                {typeof formErr.contact !== "undefined" ? (
+                  <label style={{ color: "red" }}>{formErr.contact}</label>
+                ) : (
+                  <label>email or phone</label>
+                )}
                 <div className={Style.inputWrapper}>
                   <input
                     name='contact'

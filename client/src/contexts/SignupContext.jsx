@@ -7,37 +7,29 @@ function SignupContext({ children }) {
   const initialDt = {
     firstName: "",
     lastName: "",
-    otp: "",
+    otp: "12345",
     contact: "",
     password: "",
     userName: "",
     contactType: "",
   };
-  const initialErr = {
-    firstName: "",
-    lastName: "",
-    otp: "",
-    confirmPassword: "",
-    contact: "",
-    password: "",
-    userName: "",
-  };
+
   const [currentStep, setCurrentStep] = useState(0);
   const [data, setData] = useState(initialDt);
-  const [localOtp, setLocalOtp] = useState();
-  const [formError, setFormError] = useState(initialErr);
+  const [localOtp, setLocalOtp] = useState("");
+  const [formErr, setFormErr] = useState({});
   const values = useMemo(
     () => ({
       currentStep,
-      setFormError,
-      formError,
+      setFormErr,
+      formErr,
       setCurrentStep,
       data,
       setData,
       localOtp,
       setLocalOtp,
     }),
-    [data, formError, currentStep]
+    [data, formErr, currentStep, localOtp]
   );
   return (
     <SignupProvider.Provider value={values}>{children}</SignupProvider.Provider>

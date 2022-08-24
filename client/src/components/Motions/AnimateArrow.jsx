@@ -1,14 +1,12 @@
-import { motion } from 'framer-motion'
-import React from 'react'
+import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 
-function AnimateArrow({children}) {
-  return (
-    <motion.div
-    
-    >
-        {children}
-    </motion.div>
-  )
+function AnimateArrow({ children }) {
+  return <motion.div>{children}</motion.div>;
 }
 
-export default AnimateArrow
+AnimateArrow.propTypes = {
+  children: PropTypes.node,
+};
+
+export default AnimateArrow;

@@ -57,7 +57,8 @@ theme.typography.h5 = {
 };
 
 function Step3() {
-  const { data, setData } = useContext(SignupProvider);
+  const { data, setData, formErr } = useContext(SignupProvider);
+  const { userName } = data;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -81,20 +82,28 @@ function Step3() {
           </ThemeProvider>
         </AnimateUtoD>
       </Grid>
-      <Grid item xs={11} sx={{ padding: "20px 0" }}>
+      <Grid item xs={11} sx={{ padding: "20datapx 0" }}>
         <AnimateBR>
           <div className={Style.step3Wrapper}>
             <div className={Style.childWrapper}>
               <small>
                 Username is your identity here. &#160;Make it unique.
               </small>
-              <div className={Style.formWrapper}>
-                <label>Username</label>
+              <div
+                className={Style.formWrapper}
+                style={formErr.userName && { border: "1px solid red" }}
+              >
+                {formErr.userName ? (
+                  <label style={{ color: "red" }}>{formErr.userName}</label>
+                ) : (
+                  <label>Username</label>
+                )}
+
                 <div className={Style.inputWrapper}>
                   <input
                     name='userName'
                     type='text'
-                    value={data.userName}
+                    value={userName}
                     onChange={handleChange}
                     placeholder='try a username'
                   />
@@ -113,16 +122,23 @@ function Step3() {
                     select username
                   </label>
                   <StyledSelect
-                    value={data.userName}
+                    name='userName'
                     onChange={handleChange}
                     fullWidth
-                    sx={{ height: "20px", borderBottom: "1px solid white" }}
+                    value={userName}
+                    sx={{
+                      height: "20px",
+                      borderBottom: "1px solid white",
+                      paddingLeft: "12px",
+                      fontSize: "12px",
+                    }}
                     variant='standard'
                   >
+                    <MenuItem value='banana'>banana</MenuItem>
+                    <MenuItem value='buhuhuh'>buh</MenuItem>
+                    <MenuItem value='hihihih'>Select username</MenuItem>
                     <MenuItem value=''>Select username</MenuItem>
-                    <MenuItem value=''>Select username</MenuItem>
-                    <MenuItem value=''>Select username</MenuItem>
-                    <MenuItem value=''>Select username</MenuItem>
+                    <MenuItem value={userName}>{userName}</MenuItem>
                   </StyledSelect>
                 </div>
               </div>
