@@ -9,6 +9,8 @@ import {
 } from "../../components/SignupExports";
 import { Stepper, SignupFinal } from "../../components";
 import { SignupProvider } from "../../contexts/SignupContext";
+import Step4 from "../../components/SignupStep4/Step4";
+import Step5 from "../../components/SignupStep5/Step5";
 
 function RenderStep({ currentStep }) {
   switch (currentStep) {
@@ -19,9 +21,9 @@ function RenderStep({ currentStep }) {
     case 2:
       return <Step3 />;
     case 3:
-      return <Step1 />;
+      return <Step4 />;
     case 4:
-      return <Step3 />;
+      return <Step5 />;
     case 5:
       return <SignupFinal />;
     default:
@@ -55,7 +57,6 @@ function Signup() {
         <header
           style={{
             width: "100%",
-            height: "100%",
             display: "flex",
             justifyContent: "center",
           }}

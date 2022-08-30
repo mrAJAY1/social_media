@@ -25,6 +25,7 @@
     "react-form-stepper": "^2.0.3",
     "react-hook-form-mui": "^5.3.2",
     "react-icons": "^4.4.0",
+    "react-password-strength-bar": "^0.4.1",
     "react-scripts": "5.0.1",
     "react-step-wizard": "^5.3.11",
     "web-vitals": "^2.1.4"

@@ -1,7 +1,26 @@
 import styled from "@emotion/styled";
-import { Button, Grid } from "@mui/material";
-import { useState, useContext, useEffect } from "react";
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  circularProgressClasses,
+  buttonClasses,
+} from "@mui/material";
+import { useState, useContext, useEffect, useRef } from "react";
 import { SignupProvider } from "../../contexts/SignupContext";
+
+const StyledLoader = styled(CircularProgress)(() => ({
+  [`&.${circularProgressClasses.root}`]: {
+    position: "relative",
+    top: "unset",
+    left: "unset",
+    bottom: "unset",
+    margin: "unset",
+    marginLeft: "unset",
+    marginBottom: "unset",
+    animationDuration: "0.7s",
+  },
+}));
 
 const ForwardBtn = styled(Button)(() => ({
   minWidth: "90px",
@@ -9,6 +28,9 @@ const ForwardBtn = styled(Button)(() => ({
   marginLeft: "10px",
   background: "#fff",
   boxShadow: "none",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   border: "1px solid #dbdbdb",
   borderRadius: "0.65rem",
   padding: "calc(0.5em - 1px) 1em",
@@ -16,6 +38,9 @@ const ForwardBtn = styled(Button)(() => ({
   fontWeight: "500",
   color: "#363636",
   textTransform: "none",
+  [`&.${buttonClasses.disabled}`]: {
+    background: "#5596e6",
+  },
   "&:hover": {
     color: "white",
     borderColor: "#5596e6",
@@ -45,7 +70,11 @@ const BackWardBtn = styled(Button)(() => ({
 }));
 
 function SignupBtns() {
+  const [currentValue, setCurrentValue] = useState("Next");
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const timer = useRef();
+
   const {
     currentStep,
     setCurrentStep,
@@ -54,10 +83,13 @@ function SignupBtns() {
     formErr,
     setFormErr,
     localOtp,
+    confirm,
+    isPreviewUploaded,
   } = useContext(SignupProvider);
   const { firstName, lastName, contact, otp, userName } = data;
 
-  const incrementVal = () => {
+  const incrementVal = async () => {
+    setLoading(true);
     function validateStep1() {
       const error = {};
       const regEmail =
@@ -95,22 +127,61 @@ function SignupBtns() {
         error.userName = "That username is invalid";
       return error;
     }
+    function validateConfirm() {
+      if (data.password === "") {
+        return { pwd: "Password cannot be empty" };
+      }
+      if (data.password !== confirm) {
+        return { confirmPwd: "Passwords doesn't match" };
+      }
+      return {};
+    }
     if (currentStep === 0) {
-      setFormErr(validateStep1());
-      setSubmitted(true);
+      setTimeout(() => {
+        setFormErr(validateStep1());
+        setLoading(false);
+        setSubmitted(true);
+      }, 1000);
     } else if (currentStep === 1) {
-      setFormErr(validateStep2());
-      setSubmitted(true);
+      setTimeout(() => {
+        setFormErr(validateStep2());
+        setLoading(false);
+        setSubmitted(true);
+      }, 1000);
     } else if (currentStep === 2) {
-      setFormErr(validateStep3());
-      setSubmitted(true);
+      setTimeout(() => {
+        setFormErr(validateStep3());
+        setLoading(false);
+        setSubmitted(true);
+      }, 1000);
+    } else if (currentStep === 4) {
+      setTimeout(() => {
+        setFormErr(validateConfirm());
+        setLoading(false);
+        setSubmitted(true);
+      }, 1000);
+    } else if (currentValue === "Skip") {
+      setTimeout(() => {
+        setLoading(false);
+        setCurrentStep(currentStep + 1);
+      }, 1000);
     }
   };
+
+  useEffect(() => {
+    clearTimeout(timer.current);
+  }, []);
+  useEffect(() => {
+    if (currentStep === 3 && !isPreviewUploaded) {
+      setCurrentValue("Skip");
+    }
+  }, [isPreviewUploaded]);
+
   useEffect(() => {
     if (Object.keys(formErr).length === 0 && submitted) {
       setCurrentStep(currentStep + 1);
     }
-  }, [formErr]);
+  }, [formErr, submitted]);
   const decrementVal = () => {
     setCurrentStep(currentStep - 1);
   };
@@ -122,8 +193,26 @@ function SignupBtns() {
         </BackWardBtn>
       )}
       {currentStep < 5 && (
-        <ForwardBtn onClick={incrementVal} variant='contained'>
-          Next
+        <ForwardBtn
+          disabled={!!isLoading}
+          onClick={incrementVal}
+          variant='contained'
+        >
+          {isLoading ? (
+            <StyledLoader
+              size={15}
+              sx={{
+                color: "white",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                marginTop: "-12px",
+                marginLeft: "-12px",
+              }}
+            />
+          ) : (
+            currentValue
+          )}
         </ForwardBtn>
       )}
     </Grid>

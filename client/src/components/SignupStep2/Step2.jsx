@@ -20,7 +20,7 @@ theme.typography.h2 = {
   color: "#344258",
   fontFamily: ["Montserrat", "sans-serif"].join(","),
   lineHeight: "1.2rem",
-  fontWeight: "400",
+  fontWeight: "bold",
   transform: "scale(1,0.9)",
 };
 function Step2() {

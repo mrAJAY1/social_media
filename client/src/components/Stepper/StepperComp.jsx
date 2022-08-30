@@ -67,7 +67,6 @@ const QontoStepIconRoot = styled("div")(({ theme, ownerState }) => ({
 
   "& .QontoStepIcon-completedIcon": {
     color: "white",
-    backgroundColor: "#yellow",
     zIndex: 1,
     fontSize: 22,
     border: "1px solid white",

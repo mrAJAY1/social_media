@@ -42,7 +42,7 @@ theme.typography.h2 = {
   color: "#344258",
   fontFamily: ["Montserrat", "sans-serif"].join(","),
   lineHeight: "1.2rem",
-  fontWeight: "400",
+  fontWeight: "bold",
   transform: "scale(1,0.9)",
 };
 theme.typography.h5 = {
@@ -82,7 +82,7 @@ function Step3() {
           </ThemeProvider>
         </AnimateUtoD>
       </Grid>
-      <Grid item xs={11} sx={{ padding: "20datapx 0" }}>
+      <Grid item xs={11} sx={{ padding: "20px 0" }}>
         <AnimateBR>
           <div className={Style.step3Wrapper}>
             <div className={Style.childWrapper}>

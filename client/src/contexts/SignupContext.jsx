@@ -14,7 +14,8 @@ function SignupContext({ children }) {
     contactType: "",
   };
 
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(3);
+  const [confirm, setConfirm] = useState("");
   const [data, setData] = useState(initialDt);
   const [localOtp, setLocalOtp] = useState("");
   const [formErr, setFormErr] = useState({});
@@ -23,13 +24,15 @@ function SignupContext({ children }) {
       currentStep,
       setFormErr,
       formErr,
+      confirm,
+      setConfirm,
       setCurrentStep,
       data,
       setData,
       localOtp,
       setLocalOtp,
     }),
-    [data, formErr, currentStep, localOtp]
+    [data, formErr, currentStep, localOtp, confirm]
   );
   return (
     <SignupProvider.Provider value={values}>{children}</SignupProvider.Provider>
