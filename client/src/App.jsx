@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <SignupContext>
-        <Signup></Signup>
+        <Signup />
       </SignupContext>
     </div>
   );

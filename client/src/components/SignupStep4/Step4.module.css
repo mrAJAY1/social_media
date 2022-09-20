@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+.Step4Wrapper {
+  width: 100%;
+  margin:0 auto;
+}
+header{
+height: 10vh;
+}
+main{
+  height: 60vh;
+  justify-content: center;
+}
+@media (min-width: 600px) { 
+  .Step4Wrapper{
+    width: 540px;
+  }
+}
+
+.profileWrapper{
+  display: flex;
+  justify-content: center;
+  height: 120px;
+  width: 100%;
+  padding-bottom: 50px;
+  position: relative;
+}
+.profileWrapper .profile{
+  width:120px;
+  height:120px;
+  border-radius: 50%;
+  position: relative;
+}
+.profileWrapper .profileinner{
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  position: relative;
+  height:120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width:120px;
+  border: 1px solid #cecece;
+}
+.profileWrapper .uploadButton{
+  pointer-events: all;
+  position: absolute;
+    top: 0;
+    z-index: 1000;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    background: #cecece;
+    transition: all .3s;
+}
+
+.uploadButton:hover{
+  cursor: pointer;
+  background: #3d70b2;
+}
+.profileWrapper img{
+  pointer-events: none !important;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+  user-select: none;
+  width:100px;
+  height:100px;
+  object-fit: cover;
+  object-position: center;
+  border-radius:50%;
+}
+
+.Step4Wrapper .childWrapper {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 30px;
+}
+.Step4Wrapper .childWrapper .formWrapper {
+  border: 1px solid #e8e8e8;
+  padding: 4px 8px 8px 8px;
+  border-radius: 6px;
+  background: #fcfcfc;
+  margin-bottom: 20px;
+}
+.Step4Wrapper .childWrapper .formWrapper label {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #757a91;
+  padding-left: 2px;
+}
+.Step4Wrapper .childWrapper .formWrapper .inputWrapper {
+  box-sizing: border-box;
+  clear: both;
+  font-size: 1rem;
+  position: relative;
+  text-align: inherit;
+}
+.Step4Wrapper .childWrapper .formWrapper .inputWrapper input {
+  border: none;
+  height: 30px;
+  width:100%;
+  background: #fcfcfc;
+}
+
+
+.Step4Wrapper .childWrapper .formWrapper .inputWrapper input:focus{
+    border:none;
+    outline:none;
+}
+.Step4Wrapper .childWrapper .formWrapper .inputWrapper input::placeholder{
+  color:#c4c2c6;
+}
