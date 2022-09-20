@@ -9,8 +9,8 @@ import {
 } from "../../components/SignupExports";
 import { Stepper, SignupFinal } from "../../components";
 import { SignupProvider } from "../../contexts/SignupContext";
-import Step4 from "../../components/SignupStep4/Step4";
 import Step5 from "../../components/SignupStep5/Step5";
+import Step4 from "../../components/SignupStep4/Step4";
 
 function RenderStep({ currentStep }) {
   switch (currentStep) {
@@ -37,7 +37,6 @@ RenderStep.propTypes = {
 
 function Signup() {
   const { currentStep, data, setData } = useContext(SignupProvider);
-
   const steps = [
     "personal",
     "otp",

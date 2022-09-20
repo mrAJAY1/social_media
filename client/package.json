@@ -21,6 +21,7 @@
     "prettier": "^2.7.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-avatar-editor": "^13.0.0",
     "react-dom": "^18.2.0",
     "react-form-stepper": "^2.0.3",
     "react-hook-form-mui": "^5.3.2",
@@ -28,6 +29,7 @@
     "react-password-strength-bar": "^0.4.1",
     "react-scripts": "5.0.1",
     "react-step-wizard": "^5.3.11",
+    "sass": "^1.54.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

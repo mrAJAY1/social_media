@@ -1,8 +1,8 @@
 import { createTheme, Grid, Typography, ThemeProvider } from "@mui/material";
-// import { useContext } from "react";
-// import { BsPlusCircle } from "react-icons/bs";
+import { useRef, useContext } from "react";
 import { SignupBtns } from "..";
-// import { SignupProvider } from "../../contexts/SignupContext";
+import { SignupProvider } from "../../contexts/SignupContext";
+import CropModal from "../cropModal";
 import AnimateBR from "../Motions/AnimateBR";
 import AnimateUtoD from "../Motions/AnimateUtoD";
 import Style from "./Step4.module.css";
@@ -21,18 +21,19 @@ theme.typography.h2 = {
 };
 
 function Step4() {
-  //   const { data, setData } = useContext(SignupProvider);
-  //   const handleChange = (e) => {
-  //     const { name, value } = e.target;
-  //     setData({ ...data, [name]: value });
-  //   };
+  const inputRef = useRef(null);
+  const { open, setOpen, selectFile, profile } = useContext(SignupProvider);
   const changePreview = (e) => {
     e.preventDefault();
-    console.log(" Change preview");
+    inputRef.current.click();
   };
-
+  const handleImgChange = (e) => {
+    selectFile(URL.createObjectURL(e.target.files[0]));
+    setOpen(true);
+  };
   return (
     <>
+      {open && <CropModal />}
       <Grid
         item
         xs={10}
@@ -52,17 +53,13 @@ function Step4() {
             <div className={Style.childWrapper}>
               <div className={Style.profileWrapper}>
                 <div className={Style.profileinner}>
-                  {/* <div className={Style.upload}>
-                    <BsPlusCircle
-                      color='white'
-                      style={{
-                        boxShadow: "0px 0px 1px #5596E6",
-                        borderRadius: "50%",
-                        backgroundColor: "#ededed",
-                        fontSize: "1.3rem",
-                      }}
-                    />
-                  </div> */}
+                  <input
+                    type='file'
+                    accept='image/*'
+                    ref={inputRef}
+                    onChange={handleImgChange}
+                    style={{ display: "none" }}
+                  />
                   <a
                     draggable={false}
                     href='/'
@@ -88,7 +85,10 @@ function Step4() {
                   </a>
                   <img
                     draggable='false'
-                    src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+                    src={
+                      profile ||
+                      `https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png`
+                    }
                     alt=''
                   />
                 </div>

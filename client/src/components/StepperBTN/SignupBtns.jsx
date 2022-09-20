@@ -18,7 +18,7 @@ const StyledLoader = styled(CircularProgress)(() => ({
     margin: "unset",
     marginLeft: "unset",
     marginBottom: "unset",
-    animationDuration: "0.7s",
+    animationDuration: "0.5s",
   },
 }));
 
@@ -73,6 +73,7 @@ function SignupBtns() {
   const [currentValue, setCurrentValue] = useState("Next");
   const [submitted, setSubmitted] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [isBackLoading, setBackLoading] = useState(false);
   const timer = useRef();
 
   const {
@@ -141,30 +142,30 @@ function SignupBtns() {
         setFormErr(validateStep1());
         setLoading(false);
         setSubmitted(true);
-      }, 1000);
+      }, 800);
     } else if (currentStep === 1) {
       setTimeout(() => {
         setFormErr(validateStep2());
         setLoading(false);
         setSubmitted(true);
-      }, 1000);
+      }, 800);
     } else if (currentStep === 2) {
       setTimeout(() => {
         setFormErr(validateStep3());
         setLoading(false);
         setSubmitted(true);
-      }, 1000);
+      }, 800);
     } else if (currentStep === 4) {
       setTimeout(() => {
         setFormErr(validateConfirm());
         setLoading(false);
         setSubmitted(true);
-      }, 1000);
+      }, 800);
     } else if (currentValue === "Skip") {
       setTimeout(() => {
         setLoading(false);
         setCurrentStep(currentStep + 1);
-      }, 1000);
+      }, 800);
     }
   };
 
@@ -182,14 +183,37 @@ function SignupBtns() {
       setCurrentStep(currentStep + 1);
     }
   }, [formErr, submitted]);
+
   const decrementVal = () => {
-    setCurrentStep(currentStep - 1);
+    setBackLoading(true);
+    setTimeout(() => {
+      setCurrentStep(currentStep - 1);
+    }, 800);
   };
   return (
     <Grid display='flex' justifyContent='end' item xs={12}>
       {currentStep > 0 && (
-        <BackWardBtn onClick={decrementVal} variant='contained'>
-          Back
+        <BackWardBtn
+          disabled={!!isBackLoading}
+          onClick={decrementVal}
+          variant='contained'
+        >
+          {" "}
+          {isBackLoading ? (
+            <StyledLoader
+              size={15}
+              sx={{
+                color: "white",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                marginTop: "-12px",
+                marginLeft: "-12px",
+              }}
+            />
+          ) : (
+            "Back"
+          )}
         </BackWardBtn>
       )}
       {currentStep < 5 && (
